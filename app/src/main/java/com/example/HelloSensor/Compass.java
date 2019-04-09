@@ -1,16 +1,30 @@
-package com.example.inlamning1;
+package com.example.HelloSensor;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import android.os.Vibrator;
+import android.os.VibrationEffect;
+
+
+import com.example.inlamning1.R;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 
 public class Compass extends AppCompatActivity implements SensorEventListener {
 
@@ -26,6 +40,9 @@ public class Compass extends AppCompatActivity implements SensorEventListener {
     private float[] mLastMagnetometer = new float[3];
     private boolean mLastAccelerometerSet = false;
     private boolean mLastMagnetometerSet = false;
+    Vibrator vibrator;
+    MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +51,8 @@ public class Compass extends AppCompatActivity implements SensorEventListener {
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         compass_img = (ImageView) findViewById(R.id.img_compass);
         txt_compass = (TextView) findViewById(R.id.txt_azimuth);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        mp = MediaPlayer.create(this, R.raw.sound);
 
         start();
     }
@@ -80,8 +99,25 @@ public class Compass extends AppCompatActivity implements SensorEventListener {
         if (mAzimuth <= 80 && mAzimuth > 10)
             where = "NE";
 
+        if(mAzimuth<=345 && mAzimuth >=15){
+            getWindow().getDecorView().setBackgroundColor(Color.MAGENTA);
+        }
 
-        txt_compass.setText(mAzimuth + "° " + where);
+
+        if(mAzimuth<=14 && mAzimuth >=0) {
+            getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+            //Remove comments to add vibration.
+             //vibrator.vibrate(250);
+              mp.start();
+        }
+        if(mAzimuth<=360 && mAzimuth >=346) {
+            getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+            //Remove comments to add vibration.
+             //vibrator.vibrate(250);
+              mp.start();
+        }
+
+        txt_compass.setText("Riktning " + mAzimuth + "° " + where);
     }
 
     @Override
@@ -107,7 +143,6 @@ public class Compass extends AppCompatActivity implements SensorEventListener {
         }
     }
 
-
     public void noSensorsAlert(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setMessage("Your device doesn't support the Compass.")
@@ -121,15 +156,16 @@ public class Compass extends AppCompatActivity implements SensorEventListener {
     }
 
     public void stop() {
-        if(haveSensor && haveSensor2){
-            mSensorManager.unregisterListener(this,mAccelerometer);
-            mSensorManager.unregisterListener(this,mMagnetometer);
+        if (haveSensor) {
+            mSensorManager.unregisterListener(this, mRotationV);
         }
-        else{
-            if(haveSensor)
-                mSensorManager.unregisterListener(this,mRotationV);
+        else {
+            mSensorManager.unregisterListener(this, mAccelerometer);
+            mSensorManager.unregisterListener(this, mMagnetometer);
         }
     }
+
+
 
     @Override
     protected void onPause() {
@@ -142,4 +178,5 @@ public class Compass extends AppCompatActivity implements SensorEventListener {
         super.onResume();
         start();
     }
+
 }

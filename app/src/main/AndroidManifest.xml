@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.inlamning1">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,11 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".compass"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.HelloSensor.Accelerometer"></activity>
+        <activity
+            android:name="com.example.HelloSensor.Compass"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.HelloSensor.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.example.inlamning1;
+package com.example.HelloSensor;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.inlamning1", appContext.getPackageName());
+        assertEquals("com.example.HelloSensor", appContext.getPackageName());
     }
 }

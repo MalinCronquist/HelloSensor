@@ -4,14 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="com.example.HelloSensor.MainActivity">
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="145dp"
-        android:text="open compass" />
+        android:layout_alignParentStart="true"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="116dp"
+        android:text="Kompass"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/acc"
+        android:layout_width="157dp"
+        android:layout_height="37dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="53dp"
+        android:text="Accelerometer"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Välj ett alternativ:"
+        tools:text="Välj ett alternativ:" />
+
 
 </RelativeLayout>
